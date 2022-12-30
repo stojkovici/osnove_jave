@@ -9,6 +9,12 @@ public class Auto {
     public int godinaProzivodnje;
     public int mesecRegistracije;
     public int kubikaza;
+    public String tablica;
+    public boolean klimaUAutu;
+    public int maksimalnaBrzina;
+    public int kapacitetRezervoara;
+    public double kolicinaGoriva;
+
 
 
     public void stampaj(){
@@ -61,5 +67,49 @@ public class Auto {
             double cenaPreko = (this.kubikaza*100)*1.3;
             return cenaPreko;
         }
+    }
+    public void dodajGas(){
+        this.trenutnaBrzina= this.trenutnaBrzina +10;
+        if (this.trenutnaBrzina>this.maksimalnaBrzina){
+            this.trenutnaBrzina = this.maksimalnaBrzina;
+        }
+    }
+    public void koci(){
+        this.trenutnaBrzina = this.trenutnaBrzina -10;
+        if(this.trenutnaBrzina<0){
+            this.trenutnaBrzina = 0;
+        }
+    }
+    public double trenutnaPotrosnja(){
+        if(klimaUAutu){
+            double potrosnja= (this.trenutnaBrzina / 100.0 * this.potrosnjaNa100Km)*1.2;
+            return potrosnja;
+        }
+        else {
+            double potrosnja1= (this.trenutnaBrzina/100.0 * this.potrosnjaNa100Km)*1.0;
+            return potrosnja1;
+        }
+    }
+    public boolean ukljuciKlimu(){
+        klimaUAutu = true;
+        return klimaUAutu;
+    }
+    public void stampajTablu(){
+        for (int i = 0; i <100 ; i++) {
+            double brzinometar = (this.trenutnaBrzina*100)/this.maksimalnaBrzina;
+            if(i<=brzinometar){
+                System.out.print("|");
+            }else {
+                System.out.print(".");
+            }
+        }
+    }
+    public double natociGorivo(double a){
+        double gorivo = a*210;
+        if(a+this.kolicinaGoriva>this.kapacitetRezervoara){
+            gorivo=this.kapacitetRezervoara*210;
+        }
+        return gorivo;
+
     }
 }
